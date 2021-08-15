@@ -1,0 +1,1 @@
+export type THomeForm = 'CALCULATE_OVERTIME' | 'VALIDATE_FORM' | 'UPDATE_STATE' | 'NOT_ACTION';
