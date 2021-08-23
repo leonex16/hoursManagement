@@ -1,36 +1,37 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 
-  font-size: 18px;
+	font-size: 18px;
+	font-family: 'Montserrat', sans-serif !important;
 }
 
-.main-container{
-  margin: 1rem auto;
+.main-container {
+	margin: 1rem auto;
 }
 
-.flex-container-evenly{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+.flex-container-evenly {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
-.flex-container-center{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.flex-container-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
 
-.red{
-  background-color: red;
+.red {
+	background-color: red;
 }
 
-.blue{
-  background-color: blue;
-  width: 100%;
+.blue {
+	background-color: blue;
+	width: 100%;
 }

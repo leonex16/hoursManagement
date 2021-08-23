@@ -1,3 +1,4 @@
+// LIBRARIES
 import {
 	Container,
 	FormControl,
@@ -13,23 +14,75 @@ import {
 	Button,
 	Paper,
 	Typography,
+	Snackbar,
+	Alert,
+	Slide,
+	Backdrop,
 } from '@material-ui/core';
 import { DateTimePicker } from '@material-ui/lab';
-import { useContext } from 'react';
-import { calculateOvertime, inputChange, isFormValidated } from '../../context/actions/homeAction';
+import { useContext, useState } from 'react';
+
+// CONTEXTS
 import { HomeFormContext } from '../../context/homeFormContext';
+import { UserInformationContext } from '../../context/userInformationContext';
+
+// SERVICES
+import { addRecordsHours } from '../../services/recordsHoursService';
+
+// FUNCTIONS
+import { addDays } from '../../utils/addDays';
+import { calculateOvertime, inputChange, isFormValidated } from '../../context/actions/homeAction';
+import { generateMessageAlert } from '../../utils/generateMessageAlert';
+
+// MODELS
+import { ISnackbarAlert } from '../../shared/models/ISnackbarAlert';
 import { EOvertime } from '../../shared/models/EOvertime';
 import { EShift } from '../../shared/models/EShift';
-import { addDays } from '../../utils/addDays';
+
+// OTHERS
+import { LoadingIcon } from '../../components/LoadingIcon';
 
 export const Home = () => {
-	const { homeForm, dispatch } = useContext(HomeFormContext)!;
-	console.log(homeForm)
+	const snackbarAlertInit: ISnackbarAlert = {
+		open: false,
+		message: '',
+		autoHideDuration: 3000,
+		severity: 'success',
+		anchorOrigin: { vertical: 'top', horizontal: 'center' },
+		onClose: () => setSnackbarAlert({ ...snackbarAlert, open: false }),
+		TransitionComponent: (props: any) => <Slide {...props} direction='down' />,
+	};
+
+	const { ctx: homeForm, dispatch: dispatchHomeForm } = useContext(HomeFormContext)!;
+	const { ctx: userInformation } = useContext(UserInformationContext)!;
+	const [snackbarAlert, setSnackbarAlert] = useState(snackbarAlertInit);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const handleChange = (evt: any) => {
-		console.log(evt);
-		
-		dispatch(isFormValidated(homeForm.checkOut));
-		dispatch(inputChange(evt));
+		dispatchHomeForm(inputChange(evt));
+		dispatchHomeForm(isFormValidated(null));
+	};
+
+	const showOvertimeDone = () => {
+		const homeFormTemp = { ...homeForm, overtimeQuant: calculateOvertime(homeForm).payload ?? -1 };
+		const alertContent = generateMessageAlert(homeFormTemp);
+
+		dispatchHomeForm(calculateOvertime(homeFormTemp));
+		dispatchHomeForm(isFormValidated(homeFormTemp));
+
+		if (alertContent.severity === 'error') setSnackbarAlert({ ...snackbarAlert, ...alertContent });
+	};
+
+	const saveRecord = async () => {
+		setIsLoading(true);
+		const alertContent = generateMessageAlert(homeForm);
+
+		if (alertContent.severity === 'success') {
+			await addRecordsHours(userInformation.uid, homeForm);
+		}
+
+		setSnackbarAlert({ ...snackbarAlert, ...alertContent });
+		setIsLoading(false);
 	};
 
 	return (
@@ -66,34 +119,29 @@ export const Home = () => {
 						<DateTimePicker
 							label='Hora de Entrada'
 							value={homeForm.checkIn}
-							onChange={value =>
-								handleChange({ target: { value, name: 'checkIn' } })
-							}
+							onChange={value => handleChange({ target: { value, name: 'checkIn' } })}
 							renderInput={params => <TextField {...params} />}
-							maxDateTime={new Date()}
+							// maxDateTime={new Date()}
+							minutesStep={15}
 							ampm={false}
-							inputFormat={"dd/MM/yyyy HH:mm"}
+							inputFormat={'dd/MM/yyyy HH:mm:ss'}
 						/>
 					</FormControl>
 					<FormControl fullWidth>
 						<DateTimePicker
 							label='Hora de Salida'
 							value={homeForm.checkOut}
-							onChange={value =>
-								handleChange({ target: { value, name: 'checkOut' } })
-							}
+							onChange={value => handleChange({ target: { value, name: 'checkOut' } })}
 							renderInput={params => <TextField {...params} />}
 							minDateTime={homeForm.checkIn}
 							maxDateTime={addDays(homeForm.checkIn as Date, 2)}
-							disabled={homeForm.checkIn === null ? true : false}
+							minutesStep={15}
 							ampm={false}
-							inputFormat={"dd/MM/yyyy HH:mm"}
+							inputFormat={'dd/MM/yyyy HH:mm:ss'}
 						/>
 					</FormControl>
 					<FormControl fullWidth>
-						<InputLabel id='demo-simple-select-label'>
-							Seleccione Turno
-						</InputLabel>
+						<InputLabel id='demo-simple-select-label'>Seleccione Turno</InputLabel>
 						<Select
 							labelId='demo-simple-select-label'
 							id='demo-simple-select'
@@ -107,31 +155,38 @@ export const Home = () => {
 						</Select>
 					</FormControl>
 					<FormControl fullWidth>
-						<Button variant='outlined' disabled={homeForm.isFormValidated} onClick={() => dispatch(calculateOvertime(homeForm))}>
+						<Button variant='outlined' onClick={showOvertimeDone}>
 							Calcular Horas
 						</Button>
 					</FormControl>
 				</Stack>
-				<Paper
-					className={homeForm.overtimeQuant === -1 ? 'hidden' : ''}
-					elevation={5}>
+				<Paper className={`${homeForm.isFormValidated === false && 'hidden'}`} elevation={5}>
 					<Stack component='form' spacing={2}>
 						<Typography variant='h5' component='h5' align='center'>
 							Has realizado
 						</Typography>
 						<Typography variant='h3' component='h3' align='center'>
 							{homeForm.overtimeQuant}
-							{/* {homeForm.overtimeQuant.toFixed(2)} */}
 						</Typography>
 						<Typography variant='h5' component='h5' align='center'>
 							Horas Extras
 						</Typography>
 						<FormControl fullWidth>
-							<Button variant='contained'>Guardar Horas</Button>
+							<Button variant='contained' onClick={saveRecord}>
+								Guardar Horas
+							</Button>
 						</FormControl>
 					</Stack>
 				</Paper>
 			</Stack>
+			<Snackbar {...snackbarAlert}>
+				<Alert severity={snackbarAlert.severity} variant='filled' sx={{ width: '100%' }}>
+					{snackbarAlert.message}
+				</Alert>
+			</Snackbar>
+			<Backdrop sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }} open={isLoading}>
+				<LoadingIcon />
+			</Backdrop>
 		</Container>
 	);
 };
