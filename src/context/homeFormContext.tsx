@@ -8,7 +8,7 @@ import { THomeForm } from '../shared/models/THomeForm';
 
 import { homeReducer } from './reducers/rootReducer';
 
-const homeFormInit: IHomeForm = {
+export const homeFormInit: IHomeForm = {
 	checkIn: null,
 	checkOut: null,
 	overtimeType: EOvertime.fifty,

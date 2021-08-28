@@ -31,7 +31,7 @@ import { addRecordsHours } from '../../services/recordsHoursService';
 
 // FUNCTIONS
 import { addDays } from '../../utils/addDays';
-import { calculateOvertime, inputChange, isFormValidated } from '../../context/actions/homeAction';
+import { calculateOvertime, inputChange, isFormValidated, resetForm } from '../../context/actions/homeAction';
 import { generateMessageAlert } from '../../utils/generateMessageAlert';
 
 // MODELS
@@ -78,7 +78,9 @@ export const Home = () => {
 		const alertContent = generateMessageAlert(homeForm);
 
 		if (alertContent.severity === 'success') {
-			await addRecordsHours(userInformation.uid, homeForm);
+			const isSavedRecord = await addRecordsHours(userInformation.uid, homeForm);
+
+			if (isSavedRecord === true) dispatchHomeForm(resetForm());
 		}
 
 		setSnackbarAlert({ ...snackbarAlert, ...alertContent });

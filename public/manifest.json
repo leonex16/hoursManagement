@@ -2,7 +2,7 @@
   "name": "Administrador de horas extras",
   "short_name": "Administrador de horas extras",
   "theme_color": "#1976d2",
-  "background_color": "#1976d2",
+  "background_color": "#303030",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",

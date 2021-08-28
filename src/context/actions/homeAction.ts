@@ -9,7 +9,7 @@ export function calculateOvertime(homeForm: IHomeForm) {
 	const { checkIn, checkOut, shiftType } = homeForm;
 	const hoursWorked: any = {
 		// [shiftType]: quantity hours to subtract
-		0: 7,
+		0: 7.5,
 		1: 9,
 		2: 9,
 	};
@@ -45,6 +45,12 @@ export function inputChange(evt: any) {
 
 	action.type = 'UPDATE_STATE';
 	action.payload = { [nameInp]: valueInp };
+
+	return action;
+}
+
+export function resetForm() {
+	const action: IAction<THomeForm> = { type: 'RESET_FORM', payload: null };
 
 	return action;
 }
