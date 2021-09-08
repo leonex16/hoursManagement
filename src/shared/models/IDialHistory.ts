@@ -1,12 +1,12 @@
 export interface IDialHistory {
 	overtimeQuant: number;
 	shiftType: number;
-	overtimeType: number;
-	checkOut: Check | Date;
-	checkIn: Check | Date;
+	overtimeType: number; // 50% = 0, 100% = 1
+	checkOut: ICheck | Date;
+	checkIn: ICheck | Date;
 }
 
-export interface Check {
+export interface ICheck {
 	seconds: number;
 	nanoseconds: number;
 }

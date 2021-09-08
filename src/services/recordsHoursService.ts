@@ -1,7 +1,6 @@
 import { db } from '../shared/config/firebase';
 import { IDialHistory } from '../shared/models/IDialHistory';
 import { IHomeForm } from '../shared/models/IHomeForm';
-import { parseToFirestoreDateTime } from '../utils/parseToFirestoreDateTime';
 
 const usersRef = db.collection('users');
 

@@ -1,6 +1,7 @@
 // LIBRARIES
 import {
 	Container,
+	Divider,
 	FormControl,
 	FormLabel,
 	RadioGroup,
@@ -17,7 +18,6 @@ import {
 	Snackbar,
 	Alert,
 	Slide,
-	Backdrop,
 } from '@material-ui/core';
 import { DateTimePicker } from '@material-ui/lab';
 import { useContext, useState } from 'react';
@@ -39,8 +39,8 @@ import { ISnackbarAlert } from '../../shared/models/ISnackbarAlert';
 import { EOvertime } from '../../shared/models/EOvertime';
 import { EShift } from '../../shared/models/EShift';
 
-// OTHERS
-import { LoadingIcon } from '../../components/LoadingIcon';
+// COMPONENTS
+import { LoadingComponent } from '../../components/LoadingComponent';
 
 export const Home = () => {
 	const snackbarAlertInit: ISnackbarAlert = {
@@ -55,8 +55,8 @@ export const Home = () => {
 
 	const { ctx: homeForm, dispatch: dispatchHomeForm } = useContext(HomeFormContext)!;
 	const { ctx: userInformation } = useContext(UserInformationContext)!;
-	const [snackbarAlert, setSnackbarAlert] = useState(snackbarAlertInit);
-	const [isLoading, setIsLoading] = useState(false);
+	const [ snackbarAlert, setSnackbarAlert ] = useState(snackbarAlertInit);
+	const [ isLoading, setIsLoading ] = useState(false);
 
 	const handleChange = (evt: any) => {
 		dispatchHomeForm(inputChange(evt));
@@ -90,6 +90,8 @@ export const Home = () => {
 	return (
 		<Container className='main-container'>
 			<Stack component='article' spacing={3}>
+				<Typography variant="h4">Agregar Horas</Typography>
+				<Divider />
 				<Stack component='form' spacing={3}>
 					<FormControl fullWidth component='fieldset'>
 						<FormLabel component='legend'>Hora extra realizada:</FormLabel>
@@ -151,9 +153,9 @@ export const Home = () => {
 							label='Seleccione Turno'
 							name={'shiftType'}
 							onChange={handleChange}>
-							<MenuItem value={EShift['Mañana']}>{EShift[0]}</MenuItem>
-							<MenuItem value={EShift['Tarde']}>{EShift[1]}</MenuItem>
-							<MenuItem value={EShift['Noche']}>{EShift[2]}</MenuItem>
+							<MenuItem value={EShift[ 'Mañana' ]}>{EShift[ 0 ]}</MenuItem>
+							<MenuItem value={EShift[ 'Tarde' ]}>{EShift[ 1 ]}</MenuItem>
+							<MenuItem value={EShift[ 'Noche' ]}>{EShift[ 2 ]}</MenuItem>
 						</Select>
 					</FormControl>
 					<FormControl fullWidth>
@@ -186,9 +188,7 @@ export const Home = () => {
 					{snackbarAlert.message}
 				</Alert>
 			</Snackbar>
-			<Backdrop sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }} open={isLoading}>
-				<LoadingIcon />
-			</Backdrop>
+			<LoadingComponent isLoading={isLoading} />
 		</Container>
 	);
 };
