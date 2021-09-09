@@ -1,5 +1,6 @@
-import { Backdrop } from "@material-ui/core"
-import { LoadingIcon } from "./LoadingIcon"
+import { Backdrop } from "@material-ui/core";
+
+import { LoadingIcon } from "./LoadingIcon";
 
 interface ILoadingComponent {
   isLoading: boolean;

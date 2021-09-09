@@ -84,40 +84,55 @@ self.addEventListener('message', event => {
 // const DYNAMIC_CACHE = 'DYNAMIC_CACHE_V1';
 
 // const APP_SHELL_STATIC = [
-// 	'asset-manifest.json',
-// 	'favicon.ico',
-// 	'icon-192-192.png',
-// 	'icon-256-256.png',
-// 	'icon-384-384.png',
-// 	'icon-512-512.png',
-// 	'index.html',
-// 	'static/build/static/media/Montserrat-Italic.e7728c27.ttf',
-// 	'static/build/static/media/Montserrat-SemiBold.fa8441f3.ttf',
-// 	'static/build/static/media/Montserrat-BoldItalic.a32ae5d9.ttf',
-// 	'static/build/static/media/Montserrat-ExtraLight.62a749ca.ttf',
-// 	'static/build/static/media/Montserrat-Black.46e8b3d6.ttf',
-// 	'static/build/static/media/Montserrat-Thin.4a799b11.ttf',
-// 	'static/build/static/media/Montserrat-ThinItalic.3096cb47.ttf',
-// 	'static/build/static/media/Montserrat-ExtraLightItalic.338d80b0.ttf',
-// 	'static/build/static/media/Montserrat-BlackItalic.4404f7c6.ttf',
-// 	'static/build/static/media/Montserrat-SemiBoldItalic.b0400063.ttf',
-// 	'static/build/static/media/Montserrat-Regular.3cd78665.ttf',
-// 	'static/build/static/media/Montserrat-MediumItalic.54b24d99.ttf',
-// 	'static/build/static/media/Montserrat-LightItalic.d79f80a4.ttf',
-// 	'static/build/static/media/Montserrat-Medium.e2d60bc4.ttf',
-// 	'static/build/static/media/Montserrat-ExtraBold.1944c8d1.ttf',
-// 	'static/build/static/media/Montserrat-ExtraBoldItalic.6849a97d.ttf',
-// 	'static/build/static/media/Montserrat-Bold.079ca05d.ttf',
-// 	'static/build/static/media/Montserrat-Light.02afb26f.ttf',
+// 	'./asset-manifest.json',
+// 	'./favicon.ico',
+// 	'./icon-192-192.png',
+// 	'./icon-256-256.png',
+// 	'./icon-384-384.png',
+// 	'./icon-512-512.png',
+// 	'./index.html',
 // ];
-// const APP_SHELL_DYNAMIC = [];
 
 // self.addEventListener('install', (event: ExtendableEvent) => {
-// 	const initializerCache = caches.open(STATIC_CACHE).then(varCache => varCache.addAll(APP_SHELL_STATIC));
+	// const initializerCache = caches.open(STATIC_CACHE)
+	// 	.then(varCache => varCache.addAll(APP_SHELL_STATIC))
+	// 	.catch(err => console.error("ERROR ON INSTALL EVENT - ", err));
 
-// 	event.waitUntil(initializerCache);
+	// event.waitUntil(initializerCache);
 // });
 
-// self.addEventListener('activate', (event: ExtendableEvent) => {});
+// self.addEventListener('activate', (event: ExtendableEvent) => {
+// 	const deleteOldCache = caches.keys()
+// 		.then(cacheNames => {
+// 			const cachesOld = cacheNames.map(cacheName => {
+// 				return cacheName === STATIC_CACHE || cacheName === DYNAMIC_CACHE
+// 					? null
+// 					: caches.delete(cacheName);
+// 			});
 
-// self.addEventListener('fetch', (event: ExtendableEvent) => {});
+// 			return Promise.all(cachesOld);
+// 		})
+// 		.catch(err => console.error("ERROR ON ACTIVATE EVENT - ", err));
+
+// 		event.waitUntil(deleteOldCache);
+// });
+
+// self.addEventListener('fetch', (event: FetchEvent) => {
+// 	const registerCache = caches.match(event.request)
+// 		.then(cacheRes => {
+// 			if (cacheRes) return cacheRes;
+
+// 			const fetchReq = event.request.clone();
+
+// 			return fetch(fetchReq)
+// 				.then( fetchRes => {
+// 					if(fetchRes.status !== 200 || fetchReq.method !== 'GET') return fetchRes;
+// 					caches.open(DYNAMIC_CACHE)
+// 						.then(cache => cache.put(fetchReq, fetchRes) );
+
+// 						return fetchRes;
+// 				})
+// 		});
+
+// 		event.respondWith(registerCache);
+// });

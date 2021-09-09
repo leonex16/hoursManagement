@@ -1,16 +1,16 @@
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Box } from '@material-ui/core';
+
+import { ROUTES } from '../constants/routes';
 
 import { Home } from '../screens/home/Home';
 import { Reports } from '../screens/reports/Reports';
 // import { Settings } from '../screens/settings/Settings';
 import { BottomNavbar } from '../components/BottomNavbar';
 
-import { ROUTES } from '../constants/routes';
-
 export const Router = () => {
 	return (
-		<BrowserRouter>
+		<HashRouter basename={process.env.PUBLIC_URL} hashType='slash'>
 			<Box className='router-container'>
 				<Box className='router-body'>
 					<Switch>
@@ -24,6 +24,6 @@ export const Router = () => {
 					<BottomNavbar />
 				</Box>
 			</Box>
-		</BrowserRouter>
+		</HashRouter>
 	);
 };

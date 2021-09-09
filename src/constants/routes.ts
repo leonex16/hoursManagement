@@ -1,1 +1,1 @@
-export const ROUTES = ['/hoursManagement', '/hoursManagement/reports', '/hoursManagement/settings'];
+export const ROUTES = ['/', '/reports', '/settings'];

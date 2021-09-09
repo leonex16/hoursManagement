@@ -3,12 +3,12 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useState } from 'react';
 
-import { ChildRow } from './ChildRow';
-
 import { generateKey } from '../../../utils/generateKey';
 
 import { IDialHistory } from '../../../shared/models/IDialHistory';
 import { ITotalOvertime } from '../../../shared/models/ITotalOvertime';
+
+import { ChildRow } from './ChildRow';
 
 interface IFatherRow {
   dialHistory: IDialHistory[]; periodName: string; totalOvertime: ITotalOvertime;
