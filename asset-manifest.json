@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/hoursManagement/static/css/main.ba6701ac.chunk.css",
-    "main.js": "/hoursManagement/static/js/main.7dbcdc6e.chunk.js",
-    "main.js.map": "/hoursManagement/static/js/main.7dbcdc6e.chunk.js.map",
+    "main.js": "/hoursManagement/static/js/main.4c9727fb.chunk.js",
+    "main.js.map": "/hoursManagement/static/js/main.4c9727fb.chunk.js.map",
     "runtime-main.js": "/hoursManagement/static/js/runtime-main.88861a84.js",
     "runtime-main.js.map": "/hoursManagement/static/js/runtime-main.88861a84.js.map",
-    "static/js/2.6dd3b4fe.chunk.js": "/hoursManagement/static/js/2.6dd3b4fe.chunk.js",
-    "static/js/2.6dd3b4fe.chunk.js.map": "/hoursManagement/static/js/2.6dd3b4fe.chunk.js.map",
+    "static/js/2.af2bf431.chunk.js": "/hoursManagement/static/js/2.af2bf431.chunk.js",
+    "static/js/2.af2bf431.chunk.js.map": "/hoursManagement/static/js/2.af2bf431.chunk.js.map",
     "index.html": "/hoursManagement/index.html",
     "service-worker.js": "/hoursManagement/service-worker.js",
     "service-worker.js.map": "/hoursManagement/service-worker.js.map",
     "static/css/main.ba6701ac.chunk.css.map": "/hoursManagement/static/css/main.ba6701ac.chunk.css.map",
-    "static/js/2.6dd3b4fe.chunk.js.LICENSE.txt": "/hoursManagement/static/js/2.6dd3b4fe.chunk.js.LICENSE.txt",
+    "static/js/2.af2bf431.chunk.js.LICENSE.txt": "/hoursManagement/static/js/2.af2bf431.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/hoursManagement/static/media/Montserrat-ThinItalic.3096cb47.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.88861a84.js",
-    "static/js/2.6dd3b4fe.chunk.js",
+    "static/js/2.af2bf431.chunk.js",
     "static/css/main.ba6701ac.chunk.css",
-    "static/js/main.7dbcdc6e.chunk.js"
+    "static/js/main.4c9727fb.chunk.js"
   ]
 }
