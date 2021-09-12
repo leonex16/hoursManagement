@@ -1,5 +1,6 @@
 {
   "name": "hours-management",
+  "homepage": "https://leonex16.github.io/hoursManagement", 
   "version": "0.1.0",
   "private": true,
   "dependencies": {},
@@ -9,7 +10,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "npx serve ./build",
-    "publish": "npx gh-pages -d ./build"
+    "deploy": "npx gh-pages -d ./build"
   },
   "eslintConfig": {
     "extends": [

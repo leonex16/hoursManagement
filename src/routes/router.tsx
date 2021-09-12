@@ -9,6 +9,7 @@ import { Reports } from '../screens/reports/Reports';
 import { BottomNavbar } from '../components/BottomNavbar';
 
 export const Router = () => {
+	console.log(process)
 	return (
 		<HashRouter basename={process.env.PUBLIC_URL} hashType='slash'>
 			<Box className='router-container'>
