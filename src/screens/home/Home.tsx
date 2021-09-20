@@ -24,7 +24,7 @@ import { useContext, useState } from 'react';
 
 // CONTEXTS
 import { HomeFormContext } from '../../context/homeFormContext';
-import { UserInformationContext } from '../../context/userInformationContext';
+import { logInContext } from '../../context/logInContext';
 
 // SERVICES
 import { addRecordsHours } from '../../services/recordsHoursService';
@@ -54,7 +54,7 @@ export const Home = () => {
 	};
 
 	const { ctx: homeForm, dispatch: dispatchHomeForm } = useContext(HomeFormContext)!;
-	const { ctx: userInformation } = useContext(UserInformationContext)!;
+	const { userInformation } = useContext(logInContext)!;
 	const [ snackbarAlert, setSnackbarAlert ] = useState(snackbarAlertInit);
 	const [ isLoading, setIsLoading ] = useState(false);
 
@@ -77,11 +77,11 @@ export const Home = () => {
 		setIsLoading(true);
 		const alertContent = generateMessageAlert(homeForm);
 
-		if (alertContent.severity === 'success') {
+		if ( alertContent.severity === 'success' ) {
 			const isSavedRecord = await addRecordsHours(userInformation.uid, homeForm);
 
 			if (isSavedRecord === true) dispatchHomeForm(resetForm());
-		}
+		};
 
 		setSnackbarAlert({ ...snackbarAlert, ...alertContent });
 		setIsLoading(false);

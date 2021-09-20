@@ -1,1 +1,6 @@
-export const ROUTES = ['/', '/reports', '/settings'];
+export const ROUTES = [
+  '/auth',
+  '/',
+  '/resume',
+  '/settings'
+];

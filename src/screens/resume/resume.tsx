@@ -1,10 +1,10 @@
 // LIBRARIES
+import { useContext, useState, useEffect } from 'react';
 import { Container, Stack, Typography, Divider, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
-import Chart from 'react-apexcharts';
+// import Chart from 'react-apexcharts';
 
 // CONTEXTS
-import { useContext, useState, useEffect } from 'react';
-import { UserInformationContext } from '../../context/userInformationContext';
+import { logInContext } from '../../context/logInContext';
 
 // SERVICES
 import { getDialHistory } from '../../services/recordsHoursService';
@@ -14,7 +14,6 @@ import { getPeriods } from '../../utils/getPeriods';
 import { generateKey } from '../../utils/generateKey';
 
 // MODELS
-import { IDialHistory } from '../../shared/models/IDialHistory';
 import { ITotalOvertime } from '../../shared/models/ITotalOvertime';
 
 // COMPONENTS
@@ -28,8 +27,8 @@ const totalOvertimeInit: ITotalOvertime = {
 	"100": 0,
 }
 
-export const Reports = () => {
-	const { ctx: userInformation } = useContext(UserInformationContext)!;
+export const Resume = () => {
+	const { userInformation } = useContext(logInContext)!;
 	const [ data, setData ] = useState<JSX.Element[]>([]);
 	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
@@ -68,7 +67,7 @@ export const Reports = () => {
 
 	useEffect(() => { 
 		setIsLoading(true);
-		if ( userInformation.uid === "") return;
+		if ( userInformation?.uid.length === 0) return;
 		(async () => await initComponent())()
 	 // eslint-disable-next-line react-hooks/exhaustive-deps
 	 }, [ userInformation.uid ]);
@@ -90,7 +89,7 @@ export const Reports = () => {
 								<TableCell colSpan={2} align={'left'}>100%</TableCell>
 							</TableRow>
 						</TableHead>
-						<TableBody>
+						<TableBody sx={{backgroundColor: '#121212'}}>
 							{data !== null && data.map((row: any) => row)}
 						</TableBody>
 					</Table>

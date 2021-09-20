@@ -17,10 +17,7 @@ export async function addRecordsHours(uid: string, homeForm: IHomeForm | any) {
 		delete homeForm.isFormValidated;
 		const dialHistory: IDialHistory = homeForm as IDialHistory;
 		const dialHistoryRef = usersRef.doc(uid).collection('dialHistory');
-		const response = await dialHistoryRef.add(dialHistory);
-		console.log((await response.get()).data());
-
-		response.delete();
+		await dialHistoryRef.add(dialHistory);
 
 		return true;
 	} catch (error) {

@@ -15,4 +15,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-export const db = firebase.firestore();
+const providerGoogle = new firebase.auth.GoogleAuthProvider();
+const googleAuth = () => firebase.auth().signInWithPopup(providerGoogle);
+const db = firebase.firestore();
+
+export { db, googleAuth };

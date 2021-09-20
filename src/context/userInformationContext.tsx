@@ -1,39 +1,38 @@
-import { createContext, useEffect, useReducer } from 'react';
+// import { createContext, useEffect, useReducer } from 'react';
+export const e = 1;
 
-import { IContext } from '../shared/models/IContext';
-import { IUserInformation } from '../shared/models/IUserInformation';
-import { TUserInformation } from '../shared/models/TUserInformation';
+// import { IContext } from '../shared/models/IContext';
+// import { ILogIn } from '../shared/models/ILogIn';
+// import { TUserInformation } from '../shared/models/TUserInformation';
 
-import { userReducer } from './reducers/rootReducer';
+// import { userReducer } from './reducers/rootReducer';
 
-import { getAllUsers } from '../services/userService';
-import { fillUserInformation } from './actions/userAction';
+// import { getAllUsers } from '../services/userService';
+// import { fillUserInformation } from './actions/userAction';
 
-const userInformationInit: IUserInformation = {
-	uid: '',
-	rut: 0,
-	dv: '',
-	firtname: '',
-	lastname: '',
-	email: '',
-};
+// const userInformationInit: ILogIn = {
+// 	uid: '',
+// 	firtname: '',
+// 	lastname: '',
+// 	email: '',
+// };
 
-export const UserInformationContext = createContext<IContext<IUserInformation, TUserInformation> | null>(null);
+// export const UserInformationContext = createContext<IContext<ILogIn, TUserInformation> | null>(null);
 
-export function UserInformationProvider({ children }: { children: any }) {
-	const [userInformation, dispatch] = useReducer(userReducer, userInformationInit);
+// export function UserInformationProvider({ children }: { children: any }) {
+// 	const [userInformation, dispatch] = useReducer(userReducer, userInformationInit);
 
-	useEffect(() => {
-		getAllUsers().then(users => {
-			const user: IUserInformation | undefined = users.find(user => user.rut === 10569251);
+// 	// useEffect(() => {
+// 	// 	getAllUsers().then(users => {
+// 	// 		const user: ILogIn | undefined = users.find(user => user.rut === 10569251);
 
-			dispatch(fillUserInformation(user));
-		});
-	}, []);
+// 	// 		dispatch(fillUserInformation(user));
+// 	// 	});
+// 	// }, []);
 
-	return (
-		<UserInformationContext.Provider value={{ ctx: userInformation, dispatch }}>
-			{children}
-		</UserInformationContext.Provider>
-	);
-}
+// 	return (
+// 		<UserInformationContext.Provider value={{ ctx: userInformation, dispatch }}>
+// 			{children}
+// 		</UserInformationContext.Provider>
+// 	);
+// }

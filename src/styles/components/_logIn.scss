@@ -1,0 +1,15 @@
+.button-logIn {
+  &.MuiButton-root {
+    background-color: #4285F4;
+    color: #FFFFFF;
+    font-weight: bold;
+    justify-content: flex-start;
+    padding: 0;
+    text-transform: capitalize;
+    width: 290px;
+
+    & .MuiButton-startIcon {
+      margin-left: 2px;
+    }
+  }
+}

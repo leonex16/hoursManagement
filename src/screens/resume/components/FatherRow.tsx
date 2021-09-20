@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { TableRow, TableCell, IconButton, TableContainer, Table, TableHead, TableBody, Container, Collapse } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { useState } from 'react';
 
 import { generateKey } from '../../../utils/generateKey';
 
@@ -50,7 +50,7 @@ export const FatherRow = ({ dialHistory, periodName, totalOvertime }: IFatherRow
                       <TableCell colSpan={2} align={'center'}>100%</TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  <TableBody sx={{backgroundColor: '#121212'}}>
                     {dialHistory.map(recordHour => <ChildRow key={generateKey()} dialHistory={recordHour} />)}
                   </TableBody>
                 </Table>
