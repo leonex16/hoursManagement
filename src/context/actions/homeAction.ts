@@ -3,8 +3,9 @@ import { IHomeForm } from '../../shared/models/IHomeForm';
 import { THomeForm } from '../../shared/models/THomeForm';
 
 import { calculateDiffDates } from '../../utils/calculateDiffDates';
+import { isFullOvertimes } from '../../utils/isFullOvertimes';
 
-export function calculateOvertime(homeForm: IHomeForm) {
+export async function calculateOvertime(homeForm: IHomeForm) {
 	const action: IAction<THomeForm> = { type: 'NOT_ACTION', payload: null };
 	const { checkIn, checkOut, shiftType } = homeForm;
 	const hoursWorked: any = {
@@ -16,7 +17,9 @@ export function calculateOvertime(homeForm: IHomeForm) {
 
 	if (checkIn === null || checkOut === null) return action;
 
-	const overtimeQuant: number = calculateDiffDates(new Date(checkIn), new Date(checkOut)) - hoursWorked[shiftType];
+	const overtimeQuant: number = await isFullOvertimes(new Date(checkIn)) === true
+		? calculateDiffDates(new Date(checkIn), new Date(checkOut))
+		: calculateDiffDates(new Date(checkIn), new Date(checkOut)) - hoursWorked[ shiftType ];
 
 	if (overtimeQuant < 0) return action;
 
@@ -44,7 +47,7 @@ export function inputChange(evt: any) {
 	if (valueInp instanceof Date) valueInp.setSeconds(0);
 
 	action.type = 'UPDATE_STATE';
-	action.payload = { [nameInp]: valueInp };
+	action.payload = { [ nameInp ]: valueInp };
 
 	return action;
 }

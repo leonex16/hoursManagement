@@ -7,9 +7,10 @@ import { ICheck, IDialHistory } from "../shared/models/IDialHistory";
 import { IPeriod } from "../shared/models/IPeriod";
 
 
-const periodInitial: Promise<IPeriod> = new Promise( res => res({}));
 
 export function getPeriods(dialHistory: IDialHistory[]) {
+  const periodInitial: Promise<IPeriod> = new Promise( res => res({}));
+  
   return dialHistory.reduce<Promise<IPeriod>>(async (prevValPromise, recordHours) => {
     const prevVal = await prevValPromise;
     const checkOut = firestoreDateToDate((recordHours.checkOut as ICheck).seconds);

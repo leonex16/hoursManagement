@@ -20,13 +20,6 @@ import { ITotalOvertime } from '../../shared/models/ITotalOvertime';
 import { LoadingComponent } from "../../components/LoadingComponent";
 import { FatherRow } from "./components/FatherRow";
 
-
-
-const totalOvertimeInit: ITotalOvertime = {
-	"50": 0,
-	"100": 0,
-}
-
 export const Resume = () => {
 	const { userInformation } = useContext(logInContext)!;
 	const [ data, setData ] = useState<JSX.Element[]>([]);
@@ -47,8 +40,10 @@ export const Resume = () => {
 	};
 
 	const initComponent = async () => {
+		const totalOvertimeInit: ITotalOvertime = { "50": 0, "100": 0 };
 		const dialHistory = await getDialHistory(userInformation.uid);
 		const period = await getPeriods(dialHistory);
+		console.log(period)
 
 		for (const periodName in period) {
 			const totalOvertime = period[ periodName ].reduce<ITotalOvertime>((prev, recordHour) => {
@@ -65,12 +60,12 @@ export const Resume = () => {
 		setIsLoading(false);
 	};
 
-	useEffect(() => { 
+	useEffect(() => {
 		setIsLoading(true);
-		if ( userInformation?.uid.length === 0) return;
+		if (userInformation?.uid.length === 0) return;
 		(async () => await initComponent())()
-	 // eslint-disable-next-line react-hooks/exhaustive-deps
-	 }, [ userInformation.uid ]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ userInformation.uid ]);
 
 	return (
 		<Container className='main-container'>
@@ -89,7 +84,7 @@ export const Resume = () => {
 								<TableCell colSpan={2} align={'left'}>100%</TableCell>
 							</TableRow>
 						</TableHead>
-						<TableBody sx={{backgroundColor: '#121212'}}>
+						<TableBody sx={{ backgroundColor: '#121212' }}>
 							{data !== null && data.map((row: any) => row)}
 						</TableBody>
 					</Table>

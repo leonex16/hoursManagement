@@ -1,6 +1,7 @@
 import { ThemeProvider, } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { LocalizationProvider } from '@material-ui/lab';
+import { es } from 'date-fns/locale';
 import DateAdapter from '@material-ui/lab/AdapterDateFns';
 
 import { LogInProvider } from './context/logInContext';
@@ -13,7 +14,7 @@ function App() {
 		<ThemeProvider theme={themeMode}>
 			<CssBaseline>
 				<LogInProvider>
-					<LocalizationProvider dateAdapter={DateAdapter}>
+					<LocalizationProvider dateAdapter={DateAdapter} locale={es}>
 							<HomeFormProvider>
 								<Router />
 							</HomeFormProvider>

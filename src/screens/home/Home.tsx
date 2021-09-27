@@ -63,11 +63,12 @@ export const Home = () => {
 		dispatchHomeForm(isFormValidated(null));
 	};
 
-	const showOvertimeDone = () => {
-		const homeFormTemp = { ...homeForm, overtimeQuant: calculateOvertime(homeForm).payload ?? -1 };
+	const showOvertimeDone = async () => {
+		const payloadSync = await calculateOvertime(homeForm);
+		const homeFormTemp = { ...homeForm, overtimeQuant: payloadSync.payload ?? -1 };
 		const alertContent = generateMessageAlert(homeFormTemp);
 
-		dispatchHomeForm(calculateOvertime(homeFormTemp));
+		dispatchHomeForm(await calculateOvertime(homeFormTemp));
 		dispatchHomeForm(isFormValidated(homeFormTemp));
 
 		if (alertContent.severity === 'error') setSnackbarAlert({ ...snackbarAlert, ...alertContent });

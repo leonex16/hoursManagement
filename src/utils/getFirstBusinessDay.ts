@@ -21,3 +21,4 @@ export async function getFirstBusinessDay(date: Date) {
 
   return date;
 }
+
