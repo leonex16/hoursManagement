@@ -76,12 +76,14 @@ export const Home = () => {
 
 	const saveRecord = async () => {
 		setIsLoading(true);
-		const alertContent = generateMessageAlert(homeForm);
+		let alertContent = generateMessageAlert(homeForm);
 
 		if ( alertContent.severity === 'success' ) {
 			const isSavedRecord = await addRecordsHours(userInformation.uid, homeForm);
 
-			if (isSavedRecord === true) dispatchHomeForm(resetForm());
+			(isSavedRecord === true) 
+				? dispatchHomeForm(resetForm())
+				: alertContent = generateMessageAlert(homeForm, true);
 		};
 
 		setSnackbarAlert({ ...snackbarAlert, ...alertContent });

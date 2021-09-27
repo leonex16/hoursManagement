@@ -12,10 +12,15 @@ export async function getDialHistory(uid: string): Promise<IDialHistory[]> {
 	return docs.map(doc => doc.data() as IDialHistory);
 }
 
-export async function addRecordsHours(uid: string, homeForm: IHomeForm | any) {
+export async function addRecordsHours(uid: string, homeForm: IHomeForm) {
 	try {
-		delete homeForm.isFormValidated;
-		const dialHistory: IDialHistory = homeForm as IDialHistory;
+		const dialHistory: IDialHistory = {
+			overtimeQuant: Number(homeForm.overtimeQuant),
+			shiftType: Number(homeForm.shiftType),
+			overtimeType: Number(homeForm.overtimeType),
+			checkOut: homeForm.checkOut as Date,
+			checkIn: homeForm.checkIn as Date,
+		};
 		const dialHistoryRef = usersRef.doc(uid).collection('dialHistory');
 		await dialHistoryRef.add(dialHistory);
 
