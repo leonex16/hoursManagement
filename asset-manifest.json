@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/hoursManagement/static/css/main.c7b43098.chunk.css",
-    "main.js": "/hoursManagement/static/js/main.f182af22.chunk.js",
-    "main.js.map": "/hoursManagement/static/js/main.f182af22.chunk.js.map",
+    "main.js": "/hoursManagement/static/js/main.336fdcd4.chunk.js",
+    "main.js.map": "/hoursManagement/static/js/main.336fdcd4.chunk.js.map",
     "runtime-main.js": "/hoursManagement/static/js/runtime-main.88861a84.js",
     "runtime-main.js.map": "/hoursManagement/static/js/runtime-main.88861a84.js.map",
     "static/js/2.a991fa04.chunk.js": "/hoursManagement/static/js/2.a991fa04.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.88861a84.js",
     "static/js/2.a991fa04.chunk.js",
     "static/css/main.c7b43098.chunk.css",
-    "static/js/main.f182af22.chunk.js"
+    "static/js/main.336fdcd4.chunk.js"
   ]
 }
